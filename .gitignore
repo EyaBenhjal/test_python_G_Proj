@@ -1,0 +1,23 @@
+# Virtual environment
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# SQLite database
+*.db
+*.sqlite3
+
+# IDE / Editor files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Static files / uploads (si tu en as)
+app/static/
