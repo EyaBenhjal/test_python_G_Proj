@@ -1,23 +1,22 @@
-# Virtual environment
+# Environnement virtuel
 env/
 .venv/
 
-# Python cache
+# Fichiers Python compilés
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
 
-# SQLite database
+# Base de données locale
 *.db
-*.sqlite3
-
-# IDE / Editor files
-.vscode/
-.idea/
 
 # Logs
 *.log
 
-# Static files / uploads (si tu en as)
-app/static/
+# Dossiers IDE
+.vscode/
+.idea/
+
+# Fichiers temporaires
+*.tmp
+*.swp
