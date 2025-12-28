@@ -1,9 +1,11 @@
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from jose import jwt, JWTError
 from fastapi.security import OAuth2PasswordBearer
-from app import schemas, database, crud
+from app import schemas, database, models, crud
+from fastapi.security import OAuth2PasswordRequestForm
 
 router = APIRouter(
     prefix="/auth",
@@ -39,7 +41,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     except JWTError:
         raise credentials_exception
     
-    user = db.query(crud.models.User).filter(crud.models.User.username == username).first()
+    user = db.query(models.User).filter(models.User.username == username).first()
     if user is None:
         raise credentials_exception
     return user
@@ -51,7 +53,7 @@ def signup(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
 
 # --- Login ---
 @router.post("/login")
-def login(form_data: schemas.UserLogin, db: Session = Depends(database.get_db)):
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
     user = crud.authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=400, detail="Invalid credentials")

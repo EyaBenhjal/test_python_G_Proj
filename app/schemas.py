@@ -26,7 +26,16 @@ class ProjectCreate(BaseModel):
 class TaskCreate(BaseModel):
     title: str
     description: Optional[str]
-    assigned_to: Optional[int]
+    assigned_to_id: Optional[int]
+    status: Optional[str] = "todo"
 
 class CommentCreate(BaseModel):
     content: str
+class ProjectOut(BaseModel):
+    id: int
+    title: str
+    description: Optional[str]
+
+    model_config = {
+        "from_attributes": True
+    }

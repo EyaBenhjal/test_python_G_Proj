@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app import database, schemas
 from app.crud.project import create_project, get_all_projects, get_project, update_project, delete_project
 from app.routers.auth import get_current_user
+from app import crud
 
 router = APIRouter()
 
@@ -11,8 +12,8 @@ def read_projects(db: Session = Depends(database.get_db)):
     return get_all_projects(db)
 
 @router.post("/")
-def create_project(project: schemas.ProjectCreate, db: Session = Depends(database.get_db), current_user=Depends(get_current_user)):
-    return crud.create_project(db, project, current_user.id)
+def create_project_endpoint(project: schemas.ProjectCreate, db: Session = Depends(database.get_db), current_user=Depends(get_current_user)):
+    return create_project(db, project, current_user.id)
 
 @router.get("/{project_id}")
 def read_project(project_id: int, db: Session = Depends(database.get_db)):
